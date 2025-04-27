@@ -1,6 +1,7 @@
 package com.cryptocom.wallet.presentation.dashboard
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -49,11 +50,14 @@ class DashboardAdapter : ListAdapter<AggregatedBalance, DashboardAdapter.Balance
             // Format USD value with currency symbol prefix
             binding.tvBalanceUsdValue.text = usdFormat.format(item.balanceUsdValue)
 
+            // Log the URL being loaded
+            Log.d("DashboardAdapter", "Loading image URL: ${item.currency.iconUrl}")
+
             // Use Coil to load the image
             binding.ivCurrencyIcon.load(item.currency.iconUrl) {
                 crossfade(true) // Optional: Add fade-in animation
-                placeholder(R.mipmap.logo) // Replace with your placeholder
-                error(R.mipmap.logo) // Replace with your error placeholder
+                placeholder(R.mipmap.logo) // Changed placeholder
+                error(R.mipmap.logo)       // Changed error placeholder
 //                transform(CircleCropTransformation()) // Optional: Make icons circular
             }
         }

@@ -1,5 +1,6 @@
 package com.cryptocom.wallet.data.mapper
 
+import android.util.Log
 import com.cryptocom.wallet.data.model.BalanceDto
 import com.cryptocom.wallet.data.model.CurrencyDto
 import com.cryptocom.wallet.data.model.RateTier
@@ -7,8 +8,6 @@ import com.cryptocom.wallet.domain.model.Currency
 import com.cryptocom.wallet.domain.model.ExchangeRate
 import com.cryptocom.wallet.domain.model.WalletBalance
 import java.math.BigDecimal
-import java.text.NumberFormat
-import java.util.Locale
 
 // --- Currency Mapper --- //
 fun CurrencyDto.toDomain(): Currency {
@@ -37,7 +36,7 @@ fun RateTier.toDomain(): ExchangeRate? {
             rate = rateDecimal
         )
     } catch (e: NumberFormatException) {
-        System.err.println("Error converting rate Double: $rateDouble for ${this.fromCurrency} -> ${this.toCurrency}. Error: ${e.message}")
+        Log.e("Mappers", "Error converting rate Double: $rateDouble for ${this.fromCurrency} -> ${this.toCurrency}. Error: ${e.message}")
         null
     }
 }
@@ -56,7 +55,7 @@ fun BalanceDto.toDomain(): WalletBalance? {
             amount = amountDecimal
         )
     } catch (e: NumberFormatException) {
-        System.err.println("Error converting balance Double: ${this.amount} for ${this.currencySymbol}. Error: ${e.message}")
+        Log.e("Mapper","Error converting balance Double: ${this.amount} for ${this.currencySymbol}. Error: ${e.message}")
         null
     }
 }

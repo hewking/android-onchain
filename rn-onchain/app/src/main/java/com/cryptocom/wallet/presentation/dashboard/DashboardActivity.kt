@@ -33,14 +33,8 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar()
         setupRecyclerView()
         observeViewModel()
-    }
-
-    private fun setupToolbar() {
-//        setSupportActionBar(binding.toolbar)
-        // Additional toolbar setup if needed
     }
 
     private fun setupRecyclerView() {
@@ -49,8 +43,6 @@ class DashboardActivity : AppCompatActivity() {
             adapter = dashboardAdapter
             val linearLayoutManager = LinearLayoutManager(this@DashboardActivity)
             layoutManager = linearLayoutManager
-            // Add dividers
-            addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
         }
     }
 

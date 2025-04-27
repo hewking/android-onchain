@@ -1,6 +1,7 @@
 package com.cryptocom.wallet.data.datasource.local
 
 import android.content.Context
+import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -33,7 +34,7 @@ class LocalAssetDataSourceImpl @Inject constructor(
                 }
             } catch (e: IOException) {
                 // Consider more specific error handling or logging
-                System.err.println("Error reading $fileName from assets: ${e.message}")
+                Log.e("LocalAssertDataSource", "Error reading $fileName from assets: ${e.message}")
                 throw IOException("Error reading $fileName from assets", e)
             }
         }
