@@ -58,6 +58,10 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    // Add Coil for image loading
+    implementation("io.coil-kt:coil:2.6.0") // Check for the latest version
+
 //    testImplementation(libs.testing.unit)
 //    androidTestImplementation(libs.testing.android)
 }

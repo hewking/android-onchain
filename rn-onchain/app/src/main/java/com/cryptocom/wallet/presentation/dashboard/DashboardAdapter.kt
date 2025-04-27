@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
+import com.cryptocom.wallet.R
 import com.cryptocom.wallet.databinding.ItemDashboardBalanceBinding
 import com.cryptocom.wallet.domain.model.AggregatedBalance
 import java.math.RoundingMode
@@ -46,13 +49,13 @@ class DashboardAdapter : ListAdapter<AggregatedBalance, DashboardAdapter.Balance
             // Format USD value with currency symbol prefix
             binding.tvBalanceUsdValue.text = usdFormat.format(item.balanceUsdValue)
 
-            // TODO: Load currency icon using Glide/Coil/Picasso
-            // item.currency.iconUrl?.let { url ->
-            //    binding.ivCurrencyIcon.load(url) { ... }
-            // } ?: binding.ivCurrencyIcon.setImageResource(R.drawable.ic_placeholder) // Set placeholder
-
-            // Placeholder for icon loading
-            binding.ivCurrencyIcon.setImageResource(com.google.android.material.R.drawable.ic_mtrl_checked_circle) // Example placeholder
+            // Use Coil to load the image
+            binding.ivCurrencyIcon.load(item.currency.iconUrl) {
+                crossfade(true) // Optional: Add fade-in animation
+                placeholder(R.mipmap.logo) // Replace with your placeholder
+                error(R.mipmap.logo) // Replace with your error placeholder
+//                transform(CircleCropTransformation()) // Optional: Make icons circular
+            }
         }
     }
 

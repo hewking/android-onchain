@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    android:layout_marginStart="8dp" 
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="8dp">
 
-    <!-- Currency Icon -->
-    <ImageView
-        android:id="@+id/ivCurrencyIcon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@mipmap/ic_launcher_round" 
-        android:contentDescription="@string/currency_icon_desc" />
-
-    <!-- Currency Name -->
-    <TextView
-        android:id="@+id/tvCurrencyName"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" 
-        app:layout_constraintBottom_toBottomOf="@id/ivCurrencyIcon" 
-        app:layout_constraintEnd_toStartOf="@+id/tvBalanceAmount" 
-        app:layout_constraintStart_toEndOf="@id/ivCurrencyIcon"
-        app:layout_constraintTop_toTopOf="@id/ivCurrencyIcon"
-        app:layout_constraintVertical_bias="0.2" 
-        tools:text="Basic Attention Token" />
+        android:padding="16dp">
 
-    <!-- Balance in Crypto (Amount + Symbol) -->
-    <TextView
-        android:id="@+id/tvBalanceAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" 
-        android:textStyle="normal" 
-        app:layout_constraintBottom_toTopOf="@+id/tvBalanceUsdValue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" 
-        tools:text="67.87517775 BAT" />
+        <!-- Currency Icon -->
+        <ImageView
+            android:id="@+id/ivCurrencyIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_placeholder_generic" 
+            android:contentDescription="@string/currency_icon_desc" />
 
-    <!-- Balance in USD -->
-    <TextView
-        android:id="@+id/tvBalanceUsdValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.Material3.BodyMedium" 
-        android:textColor="?android:attr/textColorSecondary" 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvBalanceAmount" 
-        app:layout_constraintTop_toBottomOf="@+id/tvBalanceAmount"
-        tools:text="$18.20" />
+        <!-- Currency Name -->
+        <TextView
+            android:id="@+id/tvCurrencyName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintBottom_toTopOf="@+id/tvBalanceUsdValue" 
+            app:layout_constraintEnd_toStartOf="@+id/tvBalanceAmount"
+            app:layout_constraintStart_toEndOf="@id/ivCurrencyIcon"
+            app:layout_constraintTop_toTopOf="parent" 
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Basic Attention Token" />
+            
+        <!-- Balance in Crypto (Amount + Symbol) -->
+        <TextView
+            android:id="@+id/tvBalanceAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvCurrencyName"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="67.87517775 BAT" />
 
-    <!-- Removed tvCurrencySymbol as it's combined with tvBalanceAmount -->
+        <!-- Balance in USD -->
+        <TextView
+            android:id="@+id/tvBalanceUsdValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvBalanceAmount"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrencyName"
+            tools:text="$18.20" />
+            
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout> 
+</com.google.android.material.card.MaterialCardView> 

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cryptocom.wallet.databinding.ActivityDashboardBinding
 import com.cryptocom.wallet.presentation.dashboard.model.DashboardEffect
@@ -46,9 +47,10 @@ class DashboardActivity : AppCompatActivity() {
         dashboardAdapter = DashboardAdapter() // Instantiate the adapter
         binding.rvBalances.apply {
             adapter = dashboardAdapter
-            layoutManager = LinearLayoutManager(this@DashboardActivity)
-            // Add item decorations if needed (e.g., dividers)
-            // addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            val linearLayoutManager = LinearLayoutManager(this@DashboardActivity)
+            layoutManager = linearLayoutManager
+            // Add dividers
+            addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
         }
     }
 
