@@ -35,16 +35,16 @@
 
 ```mermaid
 graph TD
-    A[用户操作/应用启动] --> B(Activity/Fragment);
-    B -- 请求数据 --> C{DashboardViewModel};
-    C -- 调用 UseCase --> D[GetAggregatedDashboardDataUseCase];
-    D -- 请求数据 --> E{Repositories (Currency, Rate, Wallet)};
-    E -- 获取数据 --> F[Data Sources (Local JSON)];
-    F -- 返回原始数据 --> E;
-    E -- 返回领域模型数据 --> D;
-    D -- 处理/计算/聚合数据 --> C;
-    C -- 更新 UI State (Flow/LiveData) --> B;
-    B -- 更新 UI (RecyclerView) --> G[用户界面];
+    A[用户操作/应用启动] --> B(Activity/Fragment)
+    B -- 请求数据 --> C{DashboardViewModel}
+    C -- 调用 UseCase --> D[GetAggregatedDashboardDataUseCase]
+    D -- 请求数据 --> E{Repositories}
+    E -- 获取数据 --> F[Data Sources: Local JSON]
+    F -- 返回原始数据 --> E
+    E -- 返回领域模型数据 --> D
+    D -- 处理/计算/聚合数据 --> C
+    C -- 更新 UI State (Flow/LiveData) --> B
+    B -- 更新 UI (RecyclerView) --> G[用户界面]
 
     subgraph Presentation Layer
         B
@@ -60,5 +60,6 @@ graph TD
         F
     end
 
-    G --- A;
+    G --- A
+
 ``` 
