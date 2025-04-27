@@ -83,24 +83,34 @@ class GetDashboardDataUseCase @Inject constructor(
         balances: List<WalletBalance>
     ): List<AggregatedBalance> {
         val currenciesMap = currencies.associateBy { it.symbol }
-        val ratesMap = rates.filter { it.toSymbol == "USD" }.associateBy { it.fromSymbol }
+        // Also create a map for USD rates, handling potential null rates gracefully
+        val ratesMap = rates
+            .filter { it.toSymbol == "USD" }
+            .associate { it.fromSymbol to it.rate } // Map symbol to BigDecimal rate
 
-        return balances.mapNotNull { balance ->
-            val currency = currenciesMap[balance.currencySymbol]
-            val rate = ratesMap[balance.currencySymbol]?.rate
+        return balances
+            // Filter out balances that don't have corresponding currency info or have zero amount
+            .filter { balance ->
+                currenciesMap.containsKey(balance.currencySymbol) && balance.amount > BigDecimal.ZERO
+            }
+            .map { balance -> // Use map instead of mapNotNull
+                val currency = currenciesMap[balance.currencySymbol]!! // We know it exists due to filter
+                val rate = ratesMap[balance.currencySymbol] // Rate might be null
 
-            if (currency != null && rate != null && balance.amount > BigDecimal.ZERO) { // Only include if balance > 0
-                val usdValue = balance.amount.multiply(rate).setScale(2, RoundingMode.HALF_UP)
+                // Calculate USD value, defaulting to ZERO if rate is null
+                val usdValue = if (rate != null) {
+                     balance.amount.multiply(rate).setScale(2, RoundingMode.HALF_UP)
+                } else {
+                     BigDecimal.ZERO
+                }
+
                 AggregatedBalance(
                     currency = currency,
                     balanceAmount = balance.amount,
                     balanceUsdValue = usdValue
                 )
-            } else {
-                // Exclude currencies with no balance, missing info, or missing rate
-                null
             }
-        }.sortedByDescending { it.balanceUsdValue } // Sort by USD value
+            .sortedByDescending { it.balanceUsdValue } // Sort by USD value
     }
 
     private fun calculateTotalUsdValue(aggregatedBalances: List<AggregatedBalance>): BigDecimal {

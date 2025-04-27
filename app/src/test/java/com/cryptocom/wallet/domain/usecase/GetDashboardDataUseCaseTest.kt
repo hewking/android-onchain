@@ -165,21 +165,30 @@ class GetDashboardDataUseCaseTest {
          }
      }
 
-     @Test
+    @Test
     fun `invoke should return empty list and zero total when wallet balance is empty`() = runTest {
         // Arrange
         coEvery { currencyRepository.getSupportedCurrencies() } returns flowOf(Result.Success(currencies))
         coEvery { rateRepository.getExchangeRates() } returns flowOf(Result.Success(rates))
-        coEvery { walletRepository.getWalletBalances() } returns flowOf(Result.Success(emptyList())) // No balances
+        coEvery { walletRepository.getWalletBalances() } returns flowOf(Result.Success(emptyList())) // Input is empty
 
         // Act & Assert
         useCase().test {
             val result = awaitItem()
-            assertTrue(result is Result.Success)
+            assertTrue("Result should be Success", result is Result.Success)
             val data = (result as Result.Success<DashboardData>).data
 
-            assertEquals(BigDecimal.ZERO, data.totalUsdValue)
-            assertTrue(data.balances.isEmpty())
+            // Check total value first
+            assertEquals(
+                "Total USD value should be zero when balances are empty",
+                BigDecimal.ZERO.setScale(2), // Ensure scale matches use case output
+                data.totalUsdValue
+            )
+            // Check balances list
+            assertTrue(
+                "Balances list should be empty when input balances are empty",
+                data.balances.isEmpty()
+            )
 
             awaitComplete()
         }
