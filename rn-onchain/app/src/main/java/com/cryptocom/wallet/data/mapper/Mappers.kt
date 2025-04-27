@@ -2,7 +2,7 @@ package com.cryptocom.wallet.data.mapper
 
 import com.cryptocom.wallet.data.model.BalanceDto
 import com.cryptocom.wallet.data.model.CurrencyDto
-import com.cryptocom.wallet.data.model.RateDto
+import com.cryptocom.wallet.data.model.RateTier
 import com.cryptocom.wallet.domain.model.Currency
 import com.cryptocom.wallet.domain.model.ExchangeRate
 import com.cryptocom.wallet.domain.model.WalletBalance
@@ -13,7 +13,7 @@ import java.util.Locale
 // --- Currency Mapper --- //
 fun CurrencyDto.toDomain(): Currency {
     return Currency(
-        id = this.id,
+        id = this.coinId,
         name = this.name,
         symbol = this.symbol,
         iconUrl = this.iconUrl
@@ -26,43 +26,42 @@ fun List<CurrencyDto>.toDomain(): List<Currency> {
 }
 
 // --- Rate Mapper --- //
-fun RateDto.toDomain(): ExchangeRate? { // Nullable if rate string is invalid
+fun RateTier.toDomain(): ExchangeRate? {
+    val rateDouble = this.rates.firstOrNull()?.rate ?: return null
+    
     return try {
-        // Use a parser that handles potential locale differences if necessary,
-        // but BigDecimal(String) is usually robust for standard decimal formats.
-        val rateDecimal = BigDecimal(this.rate)
+        val rateDecimal = BigDecimal.valueOf(rateDouble)
         ExchangeRate(
-            fromSymbol = this.from,
-            toSymbol = this.to,
+            fromSymbol = this.fromCurrency,
+            toSymbol = this.toCurrency,
             rate = rateDecimal
         )
     } catch (e: NumberFormatException) {
-        // Log error or handle invalid rate strings appropriately
-        System.err.println("Failed to parse rate: ${this.rate} for ${this.from} -> ${this.to}. Error: ${e.message}")
-        null // Return null for invalid entries
+        System.err.println("Error converting rate Double: $rateDouble for ${this.fromCurrency} -> ${this.toCurrency}. Error: ${e.message}")
+        null
     }
 }
 
-@JvmName("rateDtoListToDomain")
-fun List<RateDto>.toDomain(): List<ExchangeRate> {
-    return this.mapNotNull { it.toDomain() } // mapNotNull skips null results from invalid DTOs
+@JvmName("rateTierListToDomain")
+fun List<RateTier>.toDomain(): List<ExchangeRate> {
+    return this.mapNotNull { it.toDomain() }
 }
 
 // --- Balance Mapper --- //
-fun BalanceDto.toDomain(): WalletBalance? { // Nullable if amount string is invalid
+fun BalanceDto.toDomain(): WalletBalance? {
     return try {
-        val amountDecimal = BigDecimal(this.amount)
+        val amountDecimal = BigDecimal.valueOf(this.amount)
         WalletBalance(
-            currencySymbol = this.symbol,
+            currencySymbol = this.currencySymbol,
             amount = amountDecimal
         )
     } catch (e: NumberFormatException) {
-        System.err.println("Failed to parse balance amount: ${this.amount} for ${this.symbol}. Error: ${e.message}")
-        null // Return null for invalid entries
+        System.err.println("Error converting balance Double: ${this.amount} for ${this.currencySymbol}. Error: ${e.message}")
+        null
     }
 }
 
 @JvmName("balanceDtoListToDomain")
 fun List<BalanceDto>.toDomain(): List<WalletBalance> {
-    return this.mapNotNull { it.toDomain() } // mapNotNull skips null results from invalid DTOs
+    return this.mapNotNull { it.toDomain() }
 } 

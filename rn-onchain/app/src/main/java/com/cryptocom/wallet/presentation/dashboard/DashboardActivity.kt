@@ -1,6 +1,7 @@
 package com.cryptocom.wallet.presentation.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -68,6 +69,8 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun renderState(state: DashboardUiState) {
+        Log.d("DashboardActivity", "Observing UI state" + state.error)
+
         binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
         binding.tvError.visibility = if (state.error != null && !state.isLoading) View.VISIBLE else View.GONE
         binding.rvBalances.visibility = if (state.error == null && !state.isLoading) View.VISIBLE else View.GONE

@@ -1,21 +1,26 @@
 {
-  "balances": [
+  "ok": true,
+  "warning": "",
+  "wallet": [
     {
-      "symbol": "BTC",
-      "amount": "0.5"
+      "currency": "USDT",
+      "amount": 1245
     },
     {
-      "symbol": "ETH",
-      "amount": "10.25"
+      "currency": "BTC",
+      "amount": 1.4
     },
     {
-      "symbol": "CRO",
-      "amount": "50000"
+      "currency": "ETH",
+      "amount": 20.3
     },
     {
-      "symbol": "ADA",
-      "amount": "12345.67"
+      "currency": "CRO",
+      "amount": 259.1
+    },
+    {
+      "currency": "DAI",
+      "amount": 854
     }
-    // Note: User might hold currencies not listed in currencies.json or rates.json
   ]
-} 
+}

@@ -3,7 +3,7 @@ package com.cryptocom.wallet.data.repository
 import com.cryptocom.wallet.data.datasource.local.LocalAssetDataSource
 import com.cryptocom.wallet.data.mapper.toDomain
 import com.cryptocom.wallet.data.model.BalancesResponseDto
-import com.cryptocom.wallet.data.model.CurrencyDto
+import com.cryptocom.wallet.data.model.CurrenciesResponseDto
 import com.cryptocom.wallet.data.model.RatesResponseDto
 import com.cryptocom.wallet.domain.common.Result
 import com.cryptocom.wallet.domain.model.Currency
@@ -36,8 +36,8 @@ class CurrencyRepositoryImpl @Inject constructor(
         emit(Result.Loading) // Emit loading state
         try {
             val jsonString = localDataSource.getCurrenciesJsonString()
-            val dtoList = safeJsonParse<List<CurrencyDto>>(jsonString, json)
-            val domainList = dtoList.toDomain()
+            val responseDto = safeJsonParse<CurrenciesResponseDto>(jsonString, json)
+            val domainList = responseDto.currencies.toDomain()
             emit(Result.Success(domainList))
         } catch (e: Exception) {
             // Catch parsing or IO errors
@@ -58,7 +58,7 @@ class RateRepositoryImpl @Inject constructor(
         try {
             val jsonString = localDataSource.getRatesJsonString()
             val responseDto = safeJsonParse<RatesResponseDto>(jsonString, json)
-            val domainList = responseDto.rates.toDomain()
+            val domainList = responseDto.tiers.toDomain()
             emit(Result.Success(domainList))
         } catch (e: Exception) {
             emit(Result.Error(e))
