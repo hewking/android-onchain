@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">onchain-test</string>
+    <string name="app_name">Crypto Wallet</string>
+
+    <!-- Dashboard -->
+    <string name="total_balance_label">Total Balance:</string>
+    <string name="error_loading_data">Failed to load data. Please try again later.</string>
+    <string name="currency_icon_desc">Currency icon</string>
+
+    <!-- Add other strings as needed -->
+
 </resources>

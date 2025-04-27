@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="32dp" 
+    android:paddingBottom="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    tools:context=".presentation.dashboard.DashboardActivity"
+    android:background="?android:colorBackground"> <!-- Optional: Set a background -->
+
+    <!-- Total Balance Display -->
+    <TextView
+        android:id="@+id/tvTotalBalanceValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge" 
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="$36.68 USD" />
+
+    <!-- Optional: Add a label if needed, though screenshot doesn't explicitly show one near the balance -->
+    <TextView
+        android:id="@+id/tvTotalBalanceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Balance"
+        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+        app:layout_constraintTop_toBottomOf="@id/tvTotalBalanceValue"
+        app:layout_constraintStart_toStartOf="@id/tvTotalBalanceValue"
+        app:layout_constraintEnd_toEndOf="@id/tvTotalBalanceValue"/>
+
+    <!-- Balances List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBalances"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp" 
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTotalBalanceValue" 
+        tools:listitem="@layout/item_dashboard_balance" />
+
+    <!-- Loading Indicator -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTotalBalanceValue" 
+        tools:visibility="visible" />
+
+    <!-- Error Message -->
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/error_loading_data"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?attr/colorError"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTotalBalanceValue" 
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout> 

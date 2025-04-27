@@ -1,0 +1,21 @@
+{
+  "balances": [
+    {
+      "symbol": "BTC",
+      "amount": "0.5"
+    },
+    {
+      "symbol": "ETH",
+      "amount": "10.25"
+    },
+    {
+      "symbol": "CRO",
+      "amount": "50000"
+    },
+    {
+      "symbol": "ADA",
+      "amount": "12345.67"
+    }
+    // Note: User might hold currencies not listed in currencies.json or rates.json
+  ]
+} 

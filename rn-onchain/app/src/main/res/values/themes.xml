@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Onchaintest" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Base application theme. -->
+    <style name="Theme.Onchaintest" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!-- Example: 
+        <item name="colorPrimary">@color/my_light_primary</item> 
+        <item name="colorPrimaryVariant">@color/my_light_primary_variant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        -->
+    </style>
+
+    <!-- You might need a separate theme for the Splash Screen if you add one -->
+
 </resources>

@@ -1,0 +1,25 @@
+{
+  "rates": [
+    {
+      "from": "BTC",
+      "to": "USD",
+      "rate": "65000.50"
+    },
+    {
+      "from": "ETH",
+      "to": "USD",
+      "rate": "3500.75"
+    },
+    {
+      "from": "CRO",
+      "to": "USD",
+      "rate": "0.125"
+    },
+    {
+      "from": "ADA",
+      "to": "USD",
+      "rate": "0.45"
+    }
+    // Note: Might be missing rates for some currencies in currencies.json
+  ]
+} 

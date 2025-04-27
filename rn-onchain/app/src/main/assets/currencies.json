@@ -1,0 +1,32 @@
+[
+  {
+    "id": "bitcoin",
+    "name": "Bitcoin",
+    "symbol": "BTC",
+    "iconUrl": "https://example.com/icons/btc.png"
+  },
+  {
+    "id": "ethereum",
+    "name": "Ethereum",
+    "symbol": "ETH",
+    "iconUrl": "https://example.com/icons/eth.png"
+  },
+  {
+    "id": "cronos",
+    "name": "Cronos",
+    "symbol": "CRO",
+    "iconUrl": "https://example.com/icons/cro.png"
+  },
+  {
+    "id": "cardano",
+    "name": "Cardano",
+    "symbol": "ADA",
+    "iconUrl": "https://example.com/icons/ada.png"
+  },
+  {
+    "id": "solana",
+    "name": "Solana",
+    "symbol": "SOL",
+    "iconUrl": "https://example.com/icons/sol.png"
+  }
+] 

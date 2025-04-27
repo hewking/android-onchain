@@ -1,32 +1,91 @@
 [versions]
-agp = "8.9.1"
-kotlin = "2.0.21"
-coreKtx = "1.10.1"
+# Kotlin & Coroutines
+kotlin = "1.9.22" # Or latest stable
+coroutines = "1.7.3" # Or latest stable
+serialization = "1.6.2" # Or latest stable
+ksp = "1.9.22-1.0.17" # KSP version compatible with Kotlin 1.9.22
+
+# AndroidX
+appcompat = "1.6.1"
+coreKtx = "1.12.0"
+lifecycle = "2.7.0"
+activityKtx = "1.8.2"
+fragmentKtx = "1.6.2"
+constraintlayout = "2.1.4"
+recyclerview = "1.3.2"
+
+# Material
+material = "1.11.0"
+
+# Hilt
+hilt = "2.49" # Check latest stable: https://github.com/google/hilt/releases
+hiltExt = "1.1.0" # Check latest stable for hilt-navigation-compose, etc. if needed
+
+# Testing
 junit = "4.13.2"
-junitVersion = "1.1.5"
+androidxTestExtJunit = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.8.0"
-composeBom = "2024.09.00"
+mockitoKotlin = "4.1.0" # Or 5.x.x if compatible
+mockk = "1.13.8" # Or latest stable
+coroutinesTest = "1.7.3" # Match coroutines version
+
+# Build Plugins
+androidGradlePlugin = "8.2.2" # Match your Android Studio version recommendation
+kotlinGradlePlugin = "1.9.22" # Match kotlin version
+hiltGradlePlugin = "2.49" # Match hilt version
+kspGradlePlugin = "1.9.22-1.0.17" # Match ksp version
+kotlinSerializationPlugin = "1.9.22" # Match kotlin version
+
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+# Kotlin & Coroutines
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+
+# AndroidX Core
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+
+# AndroidX Lifecycle
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+# androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" } # If using LiveData
+
+# UI
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+google-material = { module = "com.google.android.material:material", version.ref = "material" }
+
+# Hilt
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+# hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltExt" } # If using Navigation Component
+
+# Testing
+test-junit = { module = "junit:junit", version.ref = "junit" }
+test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTestExtJunit" }
+test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin"}
+test-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+test-kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+
+# Removed plugin definitions from here
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+# Define plugins here using id and version.ref
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinGradlePlugin" }
+hilt-gradle = { id = "com.google.dagger.hilt.android", version.ref = "hiltGradlePlugin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPlugin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kspGradlePlugin" }
+# kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlinGradlePlugin" }
+
+[bundles]
+androidx-lifecycle = ["androidx-lifecycle-viewmodel-ktx", "androidx-lifecycle-runtime-ktx"]
+testing-unit = ["test-junit", "test-mockito-kotlin", "test-mockk", "test-kotlinx-coroutines"]
+testing-android = ["test-androidx-junit", "test-espresso-core"]
 
