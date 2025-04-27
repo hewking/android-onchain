@@ -62,6 +62,13 @@ dependencies {
     // Add Coil for image loading
     implementation("io.coil-kt:coil:2.6.0") // Check for the latest version
 
-//    testImplementation(libs.testing.unit)
-//    androidTestImplementation(libs.testing.android)
+    // Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.13.10") // Mocking library
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0") // Coroutine testing
+    testImplementation("app.cash.turbine:turbine:1.1.0") // Flow testing
+    testImplementation("androidx.arch.core:core-testing:2.2.0") // For LiveData/ViewModel testing
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
