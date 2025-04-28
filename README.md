@@ -1,109 +1,118 @@
-# Crypto.com Android Wallet Dashboard Demo
+# Android On-Chain Test Wallet
+
+A sample Android application demonstrating a simple crypto wallet dashboard. It displays a list of cryptocurrency balances held by the user, along with their approximate value in USD, based on locally stored data.
 
 ## Overview
 
-This project implements a Wallet Dashboard application that demonstrates modern Android development practices and architectural patterns. The application displays cryptocurrency balances and their corresponding USD values.
+This project showcases modern Android development practices, including:
 
-## Project Requirements
+*   **Clean Architecture:** Separation of concerns into Data, Domain, and Presentation layers.
+*   **MVI (Model-View-Intent):** A unidirectional data flow pattern implemented in the presentation layer for predictable state management.
+*   **Dependency Injection:** Using Hilt for managing dependencies throughout the app.
+*   **Asynchronous Programming:** Leveraging Kotlin Coroutines and Flow for handling background tasks and data streams.
+*   **Local Data:** Reading data (currencies, rates, balances) from JSON files stored in the `assets` folder.
+*   **Unit Testing:** Demonstrating unit tests for ViewModels, UseCases, Repositories, and Mappers using JUnit, MockK, and Turbine.
 
-### Technical Stack
-- **Language**: Kotlin
-- **Architecture**: MVVM with Clean Architecture
-- **Reactive Programming**: Kotlin Coroutine Flow
-- **Version Control**: Git with continuous commits
-- **Timeline**: 3 days
+## Architecture
 
-### Core Features
-- Multi-currency support (BTC, ETH, CRO)
-- Real-time currency conversion to USD
-- Wallet balance display
-- Reactive data updates
+The project follows a layered architecture:
 
-## Data Sources
+*   **Data Layer:** Responsible for fetching raw data (from local JSON assets in this case) and mapping it to domain models. Includes `DataSource`, `Repository` implementations, and `DTOs`.
+*   **Domain Layer:** Contains the core business logic, independent of other layers. Includes `UseCases`, `Repository` interfaces, and `Domain Models`.
+*   **Presentation Layer:** Handles the UI and user interactions. Uses MVI pattern with `ViewModel`, `UiState`, `Events`, and `Effects`. Includes `Activities`/`Fragments` and `Adapters`.
 
-The application uses three JSON data sources:
+## Tech Stack
 
-1. **Supported Currencies**
-   - Source: [currencies-json.md](json/currencies-json.md)
-   - Purpose: Lists all supported cryptocurrencies
+*   **Language:** [Kotlin](https://kotlinlang.org/)
+*   **Architecture:** Clean Architecture, MVI
+*   **Asynchronous:** [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) & [Flow](https://kotlinlang.org/docs/flow.html)
+*   **Dependency Injection:** [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+*   **Serialization:** [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)
+*   **UI:** Android SDK, View Binding, RecyclerView, Material Design Components
+*   **Image Loading:** [Coil](https://coil-kt.github.io/coil/) (Added, usage might vary)
+*   **Testing:**
+    *   [JUnit 4](https://junit.org/junit4/)
+    *   [MockK](https://mockk.io/) (Mocking)
+    *   [Turbine](https://github.com/cashapp/turbine) (Flow testing)
+    *   `kotlinx-coroutines-test`
+    *   `androidx.arch.core:core-testing`
 
-2. **Exchange Rates**
-   - Source: [live-rates-json.md](json/live-rates-json.md)
-   - Purpose: Provides current exchange rates to USD
-   - Example: For 0.0026 BTC at rate 9194.93 USD
-   - Calculation: 0.0026 * 9194.93 = 23.906818 USD
+## Setup
 
-3. **Wallet Balances**
-   - Source: [wallet-balance-json.md](json/wallet-balance-json.md)
-   - Purpose: Contains current wallet balances for each currency
+1.  Clone the repository:
+    ```bash
+    git clone <repository-url>
+    cd android-onchain-test
+    ```
+2.  Open the project in Android Studio (latest stable version recommended).
+3.  Allow Android Studio to sync Gradle dependencies.
 
-## Development Guidelines
+## Building and Running
 
-### Architecture Considerations
-- Implement clean architecture principles
-- Design for scalability and future feature additions
-- Use dependency injection
-- Follow SOLID principles
+*   **Android Studio:**
+    1.  Select the `app` configuration from the run configurations dropdown.
+    2.  Choose a target device (emulator or physical device).
+    3.  Click the "Run" button (▶️).
+*   **Gradle:**
+    ```bash
+    # Build and install the debug APK
+    ./gradlew installDebug
+    ```
 
-### Code Quality Requirements
-- Handle edge cases and error scenarios
-- Maintain clean project structure
-- Remove unused code and resources
-- Write unit tests for critical components
-- Document key architectural decisions
+## Running Tests
 
-### Best Practices
-- Follow Kotlin coding conventions
-- Implement proper error handling
-- Use meaningful commit messages
-- Structure code for maintainability
-
-## Getting Started
-
-1. Clone the repository
-```bash
-git clone [repository-url]
-```
-
-2. Open in Android Studio or Cursor IDE
-
-3. Build and run the project
-```bash
-./gradlew build
-```
+*   **Unit Tests:** Run all unit tests located in `app/src/test`.
+    ```bash
+    ./gradlew testDebugUnitTest
+    ```
+*   **Instrumented Tests:** Run Android instrumented tests located in `app/src/androidTest` (if any).
+    ```bash
+    ./gradlew connectedDebugAndroidTest
+    ```
 
 ## Project Structure
 
 ```
-app/
-├── data/           # Data layer (Repository, Data Sources)
-├── domain/         # Business logic and models
-├── presentation/   # UI layer (Activities, ViewModels)
-├── di/             # Dependency injection
-└── utils/          # Utility classes
+android-onchain-test/
+├── app/
+│   ├── build.gradle.kts         # App-level Gradle configuration
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/cryptocom/wallet/
+│   │   │   │   ├── App.kt               # Application class (for Hilt)
+│   │   │   │   ├── data/                # Data Layer
+│   │   │   │   │   ├── datasource/      # Data sources (local/remote)
+│   │   │   │   │   ├── mapper/          # DTO <-> Domain mappers
+│   │   │   │   │   ├── model/           # Data Transfer Objects (DTOs)
+│   │   │   │   │   └── repository/      # Repository implementations
+│   │   │   │   ├── di/                  # Hilt Dependency Injection modules
+│   │   │   │   ├── domain/              # Domain Layer
+│   │   │   │   │   ├── common/          # Common utilities (e.g., Result wrapper)
+│   │   │   │   │   ├── model/           # Domain models
+│   │   │   │   │   ├── repository/      # Repository interfaces
+│   │   │   │   │   └── usecase/         # Business logic use cases
+│   │   │   │   └── presentation/        # Presentation Layer
+│   │   │   │       └── dashboard/       # Dashboard feature module (Activity, VM, etc.)
+│   │   │   │           ├── model/       # MVI State/Event/Effect
+│   │   │   │           └── ...
+│   │   │   ├── res/                   # Android resources (layouts, drawables, etc.)
+│   │   │   └── assets/                # Local JSON data files
+│   │   │       ├── balances.json
+│   │   │       ├── currencies.json
+│   │   │       └── rates.json
+│   │   ├── test/                    # Unit tests
+│   │   └── androidTest/             # Instrumented tests
+│   └── ...
+├── build.gradle.kts             # Project-level Gradle configuration
+├── settings.gradle.kts          # Gradle settings
+└── README.md                    # This file
 ```
 
-## Testing
+## TODO / Future Improvements
 
-- Unit tests for business logic
-- Integration tests for data flow
-- UI tests for critical user journeys
-
-## Submission
-
-1. Create a private GitHub repository
-2. Make regular, meaningful commits
-3. Share repository access when complete
-
-## Evaluation Criteria
-
-- Code architecture and organization
-- Implementation of reactive programming
-- Error handling and edge cases
-- Code quality and cleanliness
-- Git commit history
-- Project documentation
-
----
-
-For any questions or clarifications, please reach out to the hiring team.
+*   Implement error handling display in the UI (e.g., show a snackbar/message when data loading fails).
+*   Add pull-to-refresh functionality.
+*   Replace local JSON data source with a remote API call.
+*   Implement data caching.
+*   Add UI tests (Espresso).
+*   Add more sophisticated sorting/filtering options.
